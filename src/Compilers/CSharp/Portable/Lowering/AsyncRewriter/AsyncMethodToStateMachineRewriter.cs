@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis.CodeGen;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -176,6 +177,14 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
 
             bodyBuilder.Add(GenerateHoistedLocalsCleanup(rootScopeHoistedLocals));
+
+            var hoistedParams = this.proxies
+                .Where(kvp => kvp.Key is ParameterSymbol)
+                .Select(kvp => kvp.Value)
+                .Cast<CapturedToStateMachineFieldReplacement>()
+                .Select(f => f.HoistedField)
+                .ToImmutableArray();
+            bodyBuilder.Add(GenerateHoistedLocalsCleanup(hoistedParams));
 
             bodyBuilder.Add(GenerateSetResultCall());
 
