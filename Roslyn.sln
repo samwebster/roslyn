@@ -517,6 +517,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.CommonLanguageSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.CommonLanguageServerProtocol.Framework.UnitTests", "src\Features\LanguageServer\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.csproj", "{58AD1B2C-6FFC-47CB-838A-54D0CA2BF0C8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{8FA09C44-901F-4EE9-BC9F-747944050EBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1259,6 +1261,10 @@ Global
 		{58AD1B2C-6FFC-47CB-838A-54D0CA2BF0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58AD1B2C-6FFC-47CB-838A-54D0CA2BF0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58AD1B2C-6FFC-47CB-838A-54D0CA2BF0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA09C44-901F-4EE9-BC9F-747944050EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA09C44-901F-4EE9-BC9F-747944050EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA09C44-901F-4EE9-BC9F-747944050EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA09C44-901F-4EE9-BC9F-747944050EBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1494,6 +1500,7 @@ Global
 		{D2589BCE-4F2E-4113-B7E7-37392C0C5492} = {3E5FE3DB-45F7-4D83-9097-8F05D3B3AEC6}
 		{BD9539EB-AA5E-4E67-AC7F-97D7CBC4D0C9} = {3E5FE3DB-45F7-4D83-9097-8F05D3B3AEC6}
 		{58AD1B2C-6FFC-47CB-838A-54D0CA2BF0C8} = {3E5FE3DB-45F7-4D83-9097-8F05D3B3AEC6}
+		{8FA09C44-901F-4EE9-BC9F-747944050EBC} = {32A48625-F0AD-419D-828B-A50BDABA38EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {604E6B91-7BC0-4126-AE07-D4D2FEFC3D29}
