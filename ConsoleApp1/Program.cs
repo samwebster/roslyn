@@ -11,52 +11,69 @@ namespace TestCompiler
         {
             var program_text = @"
 
+// <copyright file=""Program.cs"" company=""Microsoft"">
+// Copyright (c) Microsoft. All rights reserved.
+// </copyright>
+
+#nullable enable
+
 using System;
 using System.Threading.Tasks;
 
-while (true)
+public class Program
 {
-    await Task1();
-    Check(arrayInMem: false);
-    Console.Write(""."");
-}
+    private static WeakReference<byte[]?> weakRef = new WeakReference<byte[]?>(null);
 
-static void Check(bool arrayInMem)
-{
-    var totalMem = GC.GetTotalMemory(true);
-    if (totalMem > 1_000_000_000 ^ arrayInMem ||
-        Program.WeakRef.TryGetTarget(out _) ^ arrayInMem)
-        throw new Exception();
-}
+    public static void Main()
+    {
+        RunAsync().GetAwaiter().GetResult();
+    }
 
-static async Task<int> Task1()
-{
-    var result = await Task2();
-    // this shows reversed stack -> Console.WriteLine(Environment.StackTrace);
-    // At this point the array should be collectable but isn't
-    Check(arrayInMem: true);
-    await Task.Yield(); // prevents mem leaking to Main
-    return result;
-}
+    public static async Task RunAsync()
+    {
+        while (true)
+        {
+            await Task1Async();
+            Check(arrayInMem: false);
+            Console.Write(""."");
+        }
+    }
 
-static async Task<int> Task2()
-{
-    Check(arrayInMem: false);
-    var localMem = new byte[1_000_000_000];
-    Program.WeakRef.SetTarget(localMem);
-    Check(arrayInMem: true);
-    return await Task3(localMem);
-}
+    private static void Check(bool arrayInMem)
+    {
+        var totalMem = GC.GetTotalMemory(true);
+        if (totalMem > 1_000_000_000 ^ arrayInMem ||
+            Program.weakRef.TryGetTarget(out _) ^ arrayInMem)
+        {
+            throw new Exception();
+        }
+    }
 
-static async Task<int> Task3(byte[] mem)
-{
-    await Task.Delay(1);
-    return mem[0];
-}
+    private static async Task<int> Task1Async()
+    {
+        var result = await Task2Async();
 
-public partial class Program
-{
-    static WeakReference<byte[]?> WeakRef = new WeakReference<byte[]?>(null);
+        // this shows reversed stack -> Console.WriteLine(Environment.StackTrace);
+        // At this point the array should be collectable but isn't
+        Check(arrayInMem: true);
+        await Task.Yield(); // prevents mem leaking to Main
+        return result;
+    }
+
+    private static async Task<int> Task2Async()
+    {
+        Check(arrayInMem: false);
+        var localMem = new byte[1_000_000_000];
+        Program.weakRef.SetTarget(localMem);
+        Check(arrayInMem: true);
+        return await Task3Async(localMem);
+    }
+
+    private static async Task<int> Task3Async(byte[] mem)
+    {
+        await Task.Delay(1);
+        return mem[0];
+    }
 }
             ";
 
